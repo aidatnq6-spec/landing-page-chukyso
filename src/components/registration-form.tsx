@@ -23,6 +23,20 @@ export default function RegistrationForm({ ready }: { ready: boolean }) {
     [done, setDone] = useState(false);
   const pending = useRef<{ key: string; id: string } | null>(null),
     locked = useRef(false);
+  const formRef = useRef<HTMLFormElement>(null);
+  useEffect(() => {
+    if (!Object.keys(errors).length) return;
+    const firstInvalid = formRef.current?.querySelector<HTMLElement>(
+      '[aria-invalid="true"]',
+    );
+    firstInvalid?.focus({ preventScroll: true });
+    firstInvalid?.scrollIntoView({
+      block: "center",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
+    });
+  }, [errors]);
   useEffect(() => {
     const sync = () => {
       const p = new URL(window.location.href).searchParams.get("plan");
@@ -105,6 +119,7 @@ export default function RegistrationForm({ ready }: { ready: boolean }) {
     );
   return (
     <form
+      ref={formRef}
       className="registration-form"
       onSubmit={submit}
       noValidate
@@ -114,6 +129,16 @@ export default function RegistrationForm({ ready }: { ready: boolean }) {
         <h3>Thông tin đăng ký</h3>
         <span>Các trường đều bắt buộc</span>
       </div>
+      <span
+        id="registration-error-summary"
+        className="sr-only"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {Object.keys(errors).length
+          ? `Vui lòng kiểm tra ${Object.keys(errors).length} trường thông tin chưa hợp lệ.`
+          : ""}
+      </span>
       <div className="form-grid">
         {(
           [

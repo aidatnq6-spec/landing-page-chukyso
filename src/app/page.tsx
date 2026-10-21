@@ -91,16 +91,14 @@ export default function Home() {
                 Mua mới & gia hạn chữ ký số
               </div>
               <h1>
-                Ký số thuận tiện.
+                Chữ ký số
                 <br />
-                Luôn có <span className="no-break">VI-TECH</span>
-                <br />
-                đồng hành.
+                cho doanh nghiệp.
               </h1>
               <p>
-                Giải pháp chữ ký số cho công việc của kế toán và doanh nghiệp.
-                Từ kê khai thuế đến giao dịch điện tử, VI-TECH hỗ trợ bạn trong
-                suốt thời gian sử dụng.
+                Mua mới và gia hạn chữ ký số để kê khai thuế, ký hồ sơ BHXH và
+                hóa đơn điện tử. VI-TECH hỗ trợ bạn trong suốt thời gian sử
+                dụng.
               </p>
               <div className="hero-actions">
                 <PlanLink>

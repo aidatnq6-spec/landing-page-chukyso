@@ -114,7 +114,7 @@ section {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: rgba(255, 255, 255, 0.97);
+  background: white;
   border-bottom: 1px solid var(--line);
 }
 .nav {
@@ -695,7 +695,7 @@ h1 {
   font-size: 20px;
 }
 .form-heading > span {
-  font-size: 10px;
+  font-size: 12px;
   color: var(--muted);
 }
 .form-grid {
@@ -738,8 +738,18 @@ input[aria-invalid="true"] {
   font-size: 11px;
   margin-top: 5px;
 }
+.registration-form label {
+  font-size: 14px;
+}
+.registration-form input,
+.registration-form select {
+  font-size: 16px;
+}
+.registration-form .field-error {
+  font-size: 12px;
+}
 .privacy {
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.7;
   margin: 18px 0;
 }
@@ -751,7 +761,7 @@ input[aria-invalid="true"] {
   align-items: center;
   justify-content: center;
   gap: 5px;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--muted);
   margin-top: 15px;
 }
@@ -979,9 +989,9 @@ input[aria-invalid="true"] {
   }
   .hero-grid {
     grid-template-columns: 1fr;
-    padding-top: 40px;
-    padding-bottom: 45px;
-    gap: 10px;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    gap: 0;
   }
   h1 {
     font-size: 36px;
@@ -1001,27 +1011,7 @@ input[aria-invalid="true"] {
     font-size: 10px;
   }
   .document-visual {
-    min-height: 350px;
-    margin-top: 18px;
-  }
-  .document {
-    width: 270px;
-    padding: 21px;
-  }
-  .document-title {
-    font-size: 20px;
-    margin-top: 18px;
-  }
-  .document-lines {
-    margin: 18px 0;
-  }
-  .visual-support {
-    bottom: 15px;
-    right: 0;
-    padding: 12px 15px;
-  }
-  .illustration-note {
-    bottom: -8px;
+    display: none;
   }
   .provider-strip {
     padding: 20px 0;
@@ -1043,7 +1033,7 @@ input[aria-invalid="true"] {
     font-size: 18px;
   }
   .section {
-    padding: 52px 0;
+    padding: 40px 0;
   }
   h2 {
     font-size: 29px;
@@ -1060,7 +1050,7 @@ input[aria-invalid="true"] {
     grid-template-columns: 1fr 1fr;
   }
   .use-item {
-    padding: 21px 15px;
+    padding: 18px 15px;
   }
   .use-item h3 {
     font-size: 14px;
@@ -1071,7 +1061,7 @@ input[aria-invalid="true"] {
   .icon-box {
     width: 42px;
     height: 42px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
   .pricing-grid {
     grid-template-columns: 1fr;
@@ -1087,13 +1077,21 @@ input[aria-invalid="true"] {
     font-size: 28px;
   }
   .price-card {
-    padding: 25px;
+    padding: 20px;
   }
   .price-card.featured {
-    padding: 24px;
+    padding: 19px;
+  }
+  .price-card .plan-sub {
+    margin-bottom: 12px;
+  }
+  .price-card hr {
+    margin: 16px 0;
   }
   .price-card ul {
     font-size: 12px;
+    gap: 8px;
+    margin-bottom: 18px;
   }
   .price-card .button {
     font-size: 13px;
@@ -1113,7 +1111,7 @@ input[aria-invalid="true"] {
     font-size: 29px;
   }
   .steps li {
-    padding: 20px 0;
+    padding: 16px 0;
   }
   .registration-section {
     padding: 48px 0;
@@ -1134,6 +1132,7 @@ input[aria-invalid="true"] {
     padding: 24px 19px;
   }
   .form-grid {
+    grid-template-columns: 1fr;
     gap: 15px 12px;
   }
   .form-heading h3 {
@@ -1141,7 +1140,7 @@ input[aria-invalid="true"] {
   }
   .form-bottom {
     flex-wrap: wrap;
-    font-size: 10px;
+    font-size: 12px;
   }
   .other-providers .container {
     display: block;
