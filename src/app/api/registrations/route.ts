@@ -1,6 +1,7 @@
 import { registrationSchema } from "@/lib/registrations/schema";
 import { ApiError, failure, json, readJson } from "@/lib/server/http";
 import { isConfigured } from "@/lib/server/config";
+import { after } from "next/server";
 export const runtime = "nodejs";
 export async function POST(request: Request) {
   try {
@@ -31,6 +32,13 @@ export async function POST(request: Request) {
     const { createRegistration, sourceKey } =
       await import("@/lib/server/registration-service");
     const created = await createRegistration(parsed.data, sourceKey(request));
+    if (created) {
+      const registeredAt = new Date();
+      after(async () => {
+        const { notifyNewRegistration } = await import("@/lib/server/telegram");
+        await notifyNewRegistration(parsed.data, registeredAt);
+      });
+    }
     return json({ ok: true }, created ? 201 : 200);
   } catch (error) {
     return failure(error);

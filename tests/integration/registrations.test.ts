@@ -1,4 +1,10 @@
-import { beforeAll, beforeEach, describe, it, expect } from "vitest";
+import { beforeAll, beforeEach, describe, it, expect, vi } from "vitest";
+// These tests invoke route handlers outside the Next.js request lifecycle.
+// Real post-response execution is covered by the browser flow and unit tests.
+vi.mock("next/server", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("next/server")>()),
+  after: vi.fn(),
+}));
 import { randomUUID } from "node:crypto";
 import { firebaseAdmin } from "@/lib/firebase/admin";
 import { registrationSchema } from "@/lib/registrations/schema";
