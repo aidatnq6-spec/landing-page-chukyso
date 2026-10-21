@@ -1,6 +1,7 @@
 .superpowers/
 node_modules/
 .next/
+.next-e2e/
 .env*
 !.env.example
 playwright-report/

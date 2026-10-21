@@ -7,14 +7,16 @@ export default defineConfig({
   workers: 1,
   reporter: "list",
   use: {
-    baseURL: "http://127.0.0.1:3000",
+    baseURL: "http://127.0.0.1:3100",
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
     ...devices["Desktop Chrome"],
   },
   webServer: {
-    command: "node node_modules/next/dist/bin/next dev --hostname 127.0.0.1",
-    url: "http://127.0.0.1:3000",
+    command:
+      "node node_modules/next/dist/bin/next dev --hostname 127.0.0.1 --port 3100",
+    env: { VITECH_TEST_RUN: "true" },
+    url: "http://127.0.0.1:3100",
     reuseExistingServer: false,
     timeout: 120000,
   },

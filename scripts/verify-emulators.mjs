@@ -15,7 +15,7 @@ const env = {
   FIREBASE_PROJECT_ID: "demo-vitech",
   FIREBASE_ADMIN_UID: "vitech-demo-admin",
   REGISTRATION_HMAC_SECRET: "local-test-secret-never-use-in-production-123456",
-  SITE_ORIGIN: "http://127.0.0.1:3000",
+  SITE_ORIGIN: "http://127.0.0.1:3100",
   USE_FIREBASE_EMULATORS: "true",
   FIRESTORE_EMULATOR_HOST: "127.0.0.1:8080",
   FIREBASE_AUTH_EMULATOR_HOST: "127.0.0.1:9099",

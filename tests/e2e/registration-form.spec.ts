@@ -33,11 +33,19 @@ test("server errors preserve contact data; success follows response", async ({
   const requests: string[] = [];
   await page.route("**/api/registrations", async (route) => {
     requests.push(route.request().postDataJSON().requestId);
+    if (requests.length === 1) {
+      await route.fulfill({ status: 500, body: "" });
+      return;
+    }
     await route.fulfill({
       status: 503,
       json: { error: { message: "Lỗi thử nghiệm. Vui lòng thử lại." } },
     });
   });
+  await page.getByRole("button", { name: "Gửi đăng ký mua chữ ký số" }).click();
+  await expect(
+    page.getByText(/Chưa xác nhận được đăng ký \(HTTP 500\)/),
+  ).toBeVisible();
   await page.getByRole("button", { name: "Gửi đăng ký mua chữ ký số" }).click();
   await expect(
     page.getByText("Lỗi thử nghiệm. Vui lòng thử lại.", { exact: true }),
@@ -46,8 +54,9 @@ test("server errors preserve contact data; success follows response", async ({
     "Nguyễn An",
   );
   await page.getByRole("button", { name: "Gửi đăng ký mua chữ ký số" }).click();
-  await expect.poll(() => requests.length).toBe(2);
+  await expect.poll(() => requests.length).toBe(3);
   expect(requests[0]).toBe(requests[1]);
+  expect(requests[1]).toBe(requests[2]);
   await page.unroute("**/api/registrations");
   await page.route("**/api/registrations", (route) =>
     route.fulfill({ status: 201, json: { ok: true } }),

@@ -1,9 +1,5 @@
 import { registrationSchema } from "@/lib/registrations/schema";
 import { ApiError, failure, json, readJson } from "@/lib/server/http";
-import {
-  createRegistration,
-  sourceKey,
-} from "@/lib/server/registration-service";
 import { isConfigured } from "@/lib/server/config";
 export const runtime = "nodejs";
 export async function POST(request: Request) {
@@ -30,6 +26,10 @@ export async function POST(request: Request) {
         fields,
       );
     }
+    // Keep SDK loading inside the error boundary: module initialization can
+    // fail in a serverless runtime before a static-imported handler is called.
+    const { createRegistration, sourceKey } =
+      await import("@/lib/server/registration-service");
     const created = await createRegistration(parsed.data, sourceKey(request));
     return json({ ok: true }, created ? 201 : 200);
   } catch (error) {

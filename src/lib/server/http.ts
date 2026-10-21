@@ -23,6 +23,15 @@ export function failure(error: unknown) {
       },
       error.status,
     );
+  // Log only classification, never submitted contact details or credentials.
+  const code =
+    error && typeof error === "object" && "code" in error
+      ? String(error.code)
+      : "unknown";
+  console.error("api_request_failed", {
+    name: error instanceof Error ? error.name : "UnknownError",
+    code: /^[\w/.-]{1,100}$/.test(code) ? code : "unknown",
+  });
   return json(
     {
       error: {

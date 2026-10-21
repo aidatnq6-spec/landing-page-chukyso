@@ -3,6 +3,10 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight, CheckCircle2, Phone } from "lucide-react";
 import { planNames } from "@/lib/business";
 import { registrationSchema } from "@/lib/registrations/schema";
+import {
+  readRegistrationResponse,
+  RegistrationResponseError,
+} from "@/lib/registrations/response";
 const empty = {
   fullName: "",
   email: "",
@@ -63,22 +67,19 @@ export default function RegistrationForm({ ready }: { ready: boolean }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...values, requestId: pending.current.id }),
       });
-      const data = await response.json();
-      if (!response.ok) {
-        setErrors(data.error?.fields ?? {});
-        if (response.status === 409) pending.current = null;
-        throw new Error(
-          data.error?.message || "Chưa gửi được đăng ký. Vui lòng thử lại.",
-        );
-      }
+      await readRegistrationResponse(response);
       setDone(true);
       setValues(empty);
       pending.current = null;
     } catch (error) {
+      if (error instanceof RegistrationResponseError) {
+        setErrors(error.fields);
+        if (error.status === 409) pending.current = null;
+      }
       setMessage(
-        error instanceof Error
+        error instanceof RegistrationResponseError
           ? error.message
-          : "Kết nối bị gián đoạn. Vui lòng thử lại.",
+          : "Kết nối bị gián đoạn. Vui lòng thử lại hoặc gọi 0968.273.868.",
       );
     } finally {
       locked.current = false;

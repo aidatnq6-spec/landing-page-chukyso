@@ -66,7 +66,7 @@ describe("Firestore registration flow", () => {
     });
   });
   it("rejects public invalid payload, origin and extra fields", async () => {
-    const request = (body: unknown, origin = "http://127.0.0.1:3000") =>
+    const request = (body: unknown, origin = process.env.SITE_ORIGIN!) =>
       new Request("http://127.0.0.1:3000/api/registrations", {
         method: "POST",
         headers: { "Content-Type": "application/json", origin },
