@@ -1,6 +1,6 @@
 # Thiết kế landing page và trang quản trị VI-TECH
 
-Ngày: 21/10/2026. Trạng thái: chờ người dùng duyệt toàn bộ thiết kế trước khi triển khai.
+Ngày: 21/10/2026. Trạng thái: người dùng đã duyệt toàn bộ thiết kế và yêu cầu lập kế hoạch triển khai trong cuộc trò chuyện.
 
 ## Mục đích và phạm vi đã thống nhất
 
