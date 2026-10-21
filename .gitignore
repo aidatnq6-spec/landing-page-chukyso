@@ -1,1 +1,12 @@
 .superpowers/
+node_modules/
+.next/
+.env*
+!.env.example
+playwright-report/
+test-results/
+*-debug.log
+.firebase/
+.tools/
+*service-account*.json
+*.tsbuildinfo
