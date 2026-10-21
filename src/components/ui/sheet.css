@@ -1,0 +1,168 @@
+.ui-sheet-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgb(12 33 56 / 45%);
+}
+.ui-sheet-overlay[data-state="open"] {
+  animation: sheet-fade-in 180ms ease-out;
+}
+.ui-sheet-overlay[data-state="closed"] {
+  animation: sheet-fade-out 150ms ease-in;
+}
+.ui-sheet-content {
+  position: fixed;
+  z-index: 61;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: var(--white, #fff);
+  color: var(--ink, #162d45);
+  border: 0;
+  box-shadow: 0 0 45px rgb(12 33 56 / 15%);
+  outline: none;
+}
+.ui-sheet-content[data-side="right"],
+.ui-sheet-content[data-side="left"] {
+  top: 0;
+  bottom: 0;
+  width: min(540px, 100%);
+  height: 100dvh;
+}
+.ui-sheet-content[data-side="right"] {
+  right: 0;
+  border-left: 1px solid var(--line);
+}
+.ui-sheet-content[data-side="left"] {
+  left: 0;
+  border-right: 1px solid var(--line);
+}
+.ui-sheet-content[data-side="top"],
+.ui-sheet-content[data-side="bottom"] {
+  left: 0;
+  right: 0;
+  max-height: 90dvh;
+}
+.ui-sheet-content[data-side="top"] {
+  top: 0;
+}
+.ui-sheet-content[data-side="bottom"] {
+  bottom: 0;
+}
+.ui-sheet-content[data-state="open"] {
+  animation: sheet-slide-in 240ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ui-sheet-content[data-state="closed"] {
+  animation: sheet-slide-out 180ms ease-in;
+}
+.ui-sheet-content[data-side="right"] {
+  --sheet-x: 100%;
+  --sheet-y: 0;
+}
+.ui-sheet-content[data-side="left"] {
+  --sheet-x: -100%;
+  --sheet-y: 0;
+}
+.ui-sheet-content[data-side="top"] {
+  --sheet-x: 0;
+  --sheet-y: -100%;
+}
+.ui-sheet-content[data-side="bottom"] {
+  --sheet-x: 0;
+  --sheet-y: 100%;
+}
+.ui-sheet-header {
+  flex-shrink: 0;
+  padding: 28px 64px 24px 28px;
+  border-bottom: 1px solid var(--line);
+}
+.ui-sheet-title {
+  margin: 0;
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.6px;
+  overflow-wrap: anywhere;
+}
+.ui-sheet-description {
+  margin: 9px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.ui-sheet-footer {
+  flex-shrink: 0;
+  padding: 20px 28px max(20px, env(safe-area-inset-bottom));
+  background: var(--white, #fff);
+  border-top: 1px solid var(--line);
+}
+.ui-sheet-close {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  transition:
+    background 150ms,
+    color 150ms;
+}
+.ui-sheet-close:hover {
+  background: var(--pale);
+  color: var(--ink);
+}
+@keyframes sheet-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes sheet-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes sheet-slide-in {
+  from {
+    transform: translate(var(--sheet-x), var(--sheet-y));
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+@keyframes sheet-slide-out {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(var(--sheet-x), var(--sheet-y));
+  }
+}
+@media (max-width: 540px) {
+  .ui-sheet-header {
+    padding: 24px 62px 20px 20px;
+  }
+  .ui-sheet-footer {
+    padding: 16px 20px max(16px, env(safe-area-inset-bottom));
+  }
+  .ui-sheet-title {
+    font-size: 21px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ui-sheet-content[data-state],
+  .ui-sheet-overlay[data-state] {
+    animation: none;
+  }
+}

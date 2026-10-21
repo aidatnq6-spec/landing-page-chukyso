@@ -23,9 +23,12 @@ export default function Dashboard({ user }: { user: User }) {
     [loading, setLoading] = useState(true),
     [error, setError] = useState(""),
     [selected, setSelected] = useState<Lead | null>(null),
+    [detailOpen, setDetailOpen] = useState(false),
+    [detailSession, setDetailSession] = useState(0),
     [refresh, setRefresh] = useState(0),
     [denied, setDenied] = useState(false);
   const filters = useRef({ status, searchBy, search });
+  const detailTrigger = useRef<HTMLButtonElement | null>(null);
   useEffect(() => {
     const t = setTimeout(() => setSearch(q.trim()), 300);
     return () => clearTimeout(t);
@@ -203,7 +206,12 @@ export default function Dashboard({ user }: { user: User }) {
                     <td>
                       <button
                         className="detail-button"
-                        onClick={() => setSelected(lead)}
+                        onClick={(event) => {
+                          detailTrigger.current = event.currentTarget;
+                          setSelected(lead);
+                          setDetailSession((value) => value + 1);
+                          setDetailOpen(true);
+                        }}
                       >
                         Xem chi tiết
                       </button>
@@ -240,10 +248,12 @@ export default function Dashboard({ user }: { user: User }) {
       ) : null}
       {selected ? (
         <RegistrationDetail
-          key={selected.id}
+          key={`${selected.id}:${detailSession}`}
           user={user}
           lead={selected}
-          onClose={() => setSelected(null)}
+          open={detailOpen}
+          onClose={() => setDetailOpen(false)}
+          onReturnFocus={() => detailTrigger.current?.focus()}
           onSaved={saved}
         />
       ) : null}

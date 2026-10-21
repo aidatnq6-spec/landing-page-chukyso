@@ -1,5 +1,13 @@
 # Kết quả kiểm chứng VI-TECH
 
+## Cập nhật chi tiết khách hàng bằng Sheet — 21/10/2026
+
+Đã thay modal giữa màn hình bằng Sheet theo cấu trúc shadcn/ui Radix, tích hợp thủ công với CSS và màu hiện có. Component tái sử dụng nằm tại `src/components/ui/sheet.tsx`; không thêm Tailwind preflight làm thay đổi giao diện các trang khác.
+
+Sheet mở bên phải (540px trên desktop), toàn chiều rộng trên điện thoại. Header và nút lưu nằm cố định; phần nội dung cuộn riêng. Radix quản lý modal, khóa cuộn nền, focus trap và Escape; ứng dụng khôi phục focus về đúng nút “Xem chi tiết”. Khi đóng và mở lại, các thay đổi chưa lưu được bỏ, dữ liệu đã lưu được giữ.
+
+Kiểm chứng: lint/typecheck/build qua; 35 unit/integration tests và 4 browser tests qua với Firebase Emulator. Luồng browser kiểm tra vị trí Sheet, kích thước 375px, nút lưu trong viewport, Escape, focus trở về nút mở, focus bên trong Sheet, lưu trạng thái/ghi chú và tải lại. Đã xem ảnh [desktop](customer-sheet-desktop.png) và [mobile](customer-sheet-mobile.png). Thay đổi này chưa được deploy lên Vercel.
+
 Ngày kiểm tra: 21/10/2026, múi giờ Việt Nam.
 
 ## Phạm vi đã hoàn thành

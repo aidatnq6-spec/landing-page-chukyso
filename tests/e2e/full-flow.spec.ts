@@ -40,6 +40,23 @@ test("customer registration reaches admin and follow-up persists", async ({
     page.getByText("Nguyễn An Kiểm Thử", { exact: true }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Xem chi tiết" }).click();
+  const sheet = page.getByRole("dialog", { name: "Nguyễn An Kiểm Thử" });
+  await expect(sheet).toBeVisible();
+  await expect(sheet).toHaveAttribute("data-side", "right");
+  await expect(sheet).toHaveAttribute("aria-describedby", /\S+/);
+  await expect
+    .poll(async () => {
+      const box = await sheet.boundingBox();
+      return Math.round((box?.x ?? 0) + (box?.width ?? 0));
+    })
+    .toBe(page.viewportSize()!.width);
+  await page.screenshot({ path: ".tools/qa/customer-sheet-desktop.png" });
+  await page.keyboard.press("Escape");
+  await expect(sheet).not.toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Xem chi tiết" }),
+  ).toBeFocused();
+  await page.getByRole("button", { name: "Xem chi tiết" }).click();
   await page.getByLabel("Trạng thái liên hệ").selectOption("consulting");
   await page.getByLabel("Ghi chú tư vấn").fill("Khách cần gia hạn ICA.");
   await page.getByRole("button", { name: "Lưu trạng thái và ghi chú" }).click();
@@ -51,6 +68,43 @@ test("customer registration reaches admin and follow-up persists", async ({
     "Khách cần gia hạn ICA.",
   );
   await expect(page.getByLabel("Trạng thái liên hệ")).toHaveValue("consulting");
+  await page.setViewportSize({ width: 375, height: 667 });
+  await expect
+    .poll(async () => Math.round((await sheet.boundingBox())?.width ?? 0))
+    .toBe(375);
+  await expect
+    .poll(async () => {
+      const box = await sheet.boundingBox();
+      return Math.round((box?.x ?? 0) + (box?.width ?? 0));
+    })
+    .toBe(375);
+  await page
+    .getByLabel("Ghi chú tư vấn")
+    .fill("Ghi chú chưa lưu, thử đóng Sheet.");
+  const saveButton = page.getByRole("button", {
+    name: "Lưu trạng thái và ghi chú",
+  });
+  await expect(saveButton).toBeInViewport();
+  await sheet.locator(".detail-sheet-body").evaluate((element) => {
+    element.scrollTop = 0;
+  });
+  await page.screenshot({ path: ".tools/qa/customer-sheet-mobile.png" });
+  await page.keyboard.press("Tab");
+  await expect
+    .poll(() =>
+      page.evaluate(
+        () =>
+          !!document
+            .querySelector('[data-slot="sheet-content"]')
+            ?.contains(document.activeElement),
+      ),
+    )
+    .toBe(true);
+  await page.getByRole("button", { name: "Đóng chi tiết" }).click();
+  await page.getByRole("button", { name: "Xem chi tiết" }).click();
+  await expect(page.getByLabel("Ghi chú tư vấn")).toHaveValue(
+    "Khách cần gia hạn ICA.",
+  );
   await page.getByRole("button", { name: "Đóng chi tiết" }).click();
   await page.getByRole("button", { name: "Đăng xuất" }).click();
   await expect(

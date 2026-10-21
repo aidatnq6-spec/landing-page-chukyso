@@ -72,6 +72,8 @@ Chưa có Firebase: có thể xem giao diện cục bộ; form báo chưa sẵn 
 
 ## Trang quản trị
 
+Cập nhật theo yêu cầu ngày 21/10/2026: “Xem chi tiết” dùng Sheet theo shadcn UI/Radix, mở từ cạnh phải, toàn chiều rộng trên điện thoại. Giữ thông tin khách hàng, trạng thái và ghi chú; nội dung cuộn riêng với nút lưu ở footer, có hỗ trợ Escape và trả focus về nút mở.
+
 Người dùng chọn một tài khoản quản lý chung. Tài khoản do chủ dự án tạo trong Firebase Authentication khi thiết lập; không cung cấp đăng ký công khai. API quản trị kiểm tra Firebase ID token và đối chiếu đúng UID được cấu hình cho tài khoản quản lý; không cấp quyền cho mọi tài khoản đã đăng nhập. Firestore rules không cho truy cập dữ liệu từ client công khai; quản trị thao tác qua API đã kiểm tra quyền.
 
 Trang `/admin` gồm đăng nhập và đăng xuất, danh sách đăng ký mới nhất trước, thông tin chi tiết, lọc trạng thái và tìm theo tên/điện thoại/email. Đề xuất phân trang 20 lượt đăng ký, tìm kiếm dữ liệu phía máy chủ bằng khóa chuẩn hóa phù hợp Firestore, không tải toàn bộ tập dữ liệu về trình duyệt. Phạm vi tìm kiếm tối thiểu là theo tiền tố tên/email và tiền tố số điện thoại đã chuẩn hóa; ghi rõ cách tìm trên UI.

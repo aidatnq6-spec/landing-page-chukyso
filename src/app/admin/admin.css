@@ -215,46 +215,36 @@ td a {
   max-width: 500px;
   margin: auto;
 }
-.detail-dialog {
-  width: min(600px, calc(100% - 30px));
-  max-height: 90vh;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 30px;
-  color: var(--ink);
-  box-shadow: 0 20px 80px #122d4930;
-}
-.detail-dialog::backdrop {
-  background: #0c21386b;
-}
-.detail-heading {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-}
-.detail-heading h2 {
-  font-size: 24px;
-  letter-spacing: -0.6px;
-}
-.detail-heading .kicker {
+.ui-sheet-header .kicker {
   margin-bottom: 8px;
 }
-.icon-button {
-  width: 44px;
-  height: 44px;
-  background: #f3f6f9;
-  border: 0;
-  border-radius: 6px;
+.detail-sheet-form {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+.detail-sheet-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 28px;
+}
+.detail-section-title {
+  font-size: 14px;
+  margin: 0 0 20px;
+}
+.detail-follow-up {
+  padding-top: 26px;
+  border-top: 1px solid var(--line);
 }
 .detail-data {
   display: grid;
-  grid-template-columns: 145px 1fr;
-  gap: 12px;
+  grid-template-columns: 135px 1fr;
+  gap: 16px 12px;
   font-size: 12px;
-  margin-bottom: 25px;
+  margin: 0 0 28px;
 }
 .detail-data dt {
   color: var(--muted);
@@ -263,11 +253,17 @@ td a {
   margin: 0;
   overflow-wrap: anywhere;
 }
-.detail-dialog label {
+.detail-data a {
+  color: var(--blue);
+}
+.detail-sheet-form label {
   margin-top: 15px;
 }
-.detail-dialog .button {
+.detail-sheet-form .button {
   width: 100%;
+}
+.detail-sheet-form .notice {
+  margin: 0 0 14px;
 }
 @media (max-width: 700px) {
   .admin-brand {
@@ -302,8 +298,8 @@ td a {
   .admin-search {
     grid-column: 1/-1;
   }
-  .detail-dialog {
-    padding: 22px;
+  .detail-sheet-body {
+    padding: 24px 20px;
   }
   .detail-data {
     grid-template-columns: 1fr;
