@@ -199,6 +199,10 @@ Admin response đặt `Cache-Control: no-store`; không cache dữ liệu khách
 
 ## Thứ tự và các mốc có thể xem
 
+### Ghi nhận thực hiện
+
+Đã triển khai mã ứng dụng, kiểm thử và tài liệu trong phiên hiện tại. Kết quả: lint/typecheck/build thành công; 29 unit/integration tests và 4 browser tests qua với project emulator `demo-vitech`. Logo gốc đã được tích hợp. Chi tiết, ảnh chụp và các bước Firebase/hosting thật còn lại tại `docs/verification/acceptance.md`. Không coi kiểm chứng emulator là đã xuất bản hoặc cấu hình Firebase production.
+
 - Task 1–4: nền tảng và API nhận đăng ký.
 - Task 5–6: xem và dùng thử landing page; chưa coi là hoàn tất Firebase thật.
 - Task 7–9: xem và dùng thử trang quản trị.
