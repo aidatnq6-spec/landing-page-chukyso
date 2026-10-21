@@ -1,5 +1,11 @@
 # Triển khai và vận hành
 
+## Lỗi Firebase Auth khi khởi động trên Vercel
+
+Nếu log có `ERR_REQUIRE_ESM` từ `jwks-rsa/src/utils.js` khi nạp `firebase-admin/auth`, nguyên nhân là `jwks-rsa` gọi `require('jose')` nhưng `jose` v6 chỉ cung cấp ESM. Bản vá dự án giới hạn `jose@5.10.0` riêng dưới `jwks-rsa` bằng npm overrides; các thư viện khác vẫn dùng phiên bản jose của chúng. Cần commit cả `package.json` và `package-lock.json`, sau đó triển khai lại từ commit mới; redeploy commit cũ không nhận bản vá.
+
+Test `tests/unit/firebase-module-loading.test.ts` tắt hỗ trợ `require(ESM)` để tái hiện môi trường lỗi và kiểm tra Firebase Auth nạp được cùng khả năng chuyển JWKS thành public key PEM. Không gỡ override trước khi đã có bản upstream tương thích và test này vẫn qua.
+
 ## Môi trường
 
 Ứng dụng dùng Next.js Node.js server và Firebase Admin SDK. Không triển khai dưới dạng static export. Chưa chọn nhà cung cấp hosting hoặc tên miền. Chọn dịch vụ hỗ trợ Next.js server/API, HTTPS và secret env; kiểm tra plan, hạn mức, chi phí Firebase và hosting tại lúc triển khai.
